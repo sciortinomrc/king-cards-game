@@ -46,7 +46,7 @@ if __name__ == "__main__":
         # gameroom_id=uuid.uuid4()
         gameroom_id = "magic"
         rooms[str(gameroom_id)] = GameRoom(str(gameroom_id))
-        return redirect("http://local.king.uk/play/?room="+str(gameroom_id), code=302)
+        return redirect("https://king.mrcdev.co.uk/play/?room="+str(gameroom_id), code=302)
 
     @app.route(is_room_ready_url)
     def is_room_ready(room_id):

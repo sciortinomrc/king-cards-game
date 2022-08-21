@@ -5,6 +5,7 @@ cp $home/ci/server/king.service /etc/systemd/system/king.service
 cp $home/ci/server/king-deploy.service /etc/systemd/system/king-deploy.service
 cp $home/ci/server/king-permissions /tmp/king/king-permissions
 cp $home/ci/server/start /tmp/king/start
+cp $home/ci/server/king.conf /etc/apache2/sites-available/king.conf
 cp -r $home/backend/* /tmp/king/
 
 echo $(date +"%Y%m%d%H%M%S") > /var/www/king/version

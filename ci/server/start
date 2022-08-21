@@ -1,2 +1,2 @@
 pipenv install
-pipenv run python3 api.py
+pipenv run python3 api.py > /home/backend/king/application.log 2>&1
