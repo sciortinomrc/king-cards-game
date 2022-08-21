@@ -1,0 +1,12 @@
+[Unit]
+Description=king cards game server
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+WorkingDirectory=/tmp/king
+User=backend
+Group=backend
+ExecStart="/bin/bash /tmp/king/king-permissions > /tmp/king/logs/application.log 2>&1"
+TimeoutSec=600
+Restart=on-failure

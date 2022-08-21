@@ -1,0 +1,9 @@
+echo "--------------------------------------------------"
+echo "|         Copying folder to app root             |"
+echo "--------------------------------------------------"
+
+mkdir /home/backend/king
+chown -R backend:backend /home/backend/king
+
+cp -r /tmp/king/* /home/backend/king
+service king-deploy stop
