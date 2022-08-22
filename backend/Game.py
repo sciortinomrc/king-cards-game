@@ -28,24 +28,20 @@ class Game:
 
         self.declare_players(players_names)
         dealer = 0
-        print("Game will start in 5 seconds")
+        print("Gameroom %s - Game will start in 5 seconds" % ( self.room_id ))
 
         for phase in self.phases:
-            print(self.get_phase_rules(phase))
             table = self.set_table(phase, dealer)
             dealer = table["dealer"]
             playing_order = table["playing_order"]
             
             self.wait_declare_if_last_phase(phase, playing_order)
-            print(self.players[playing_order[0]].name + " Starts")
+            print("Gameroom %s - %s  Starts" % ( self.room_id, self.players[playing_order[0]].name))
             
             self.do_play_phase(phase, playing_order)
 
             dealer+=1
 
-            print(self.players["first"].name+"\t", self.players["second"].name+"\t", self.players["third"].name+"\t", self.players["fourth"].name+"\t")
-            print(str(self.players["first"].points)+"\t", str(self.players["second"].points)+"\t", str(self.players["third"].points)+"\t", str(self.players["fourth"].points)+"\t")
-            print()
         self.complete = True
 
     def set_table(self, phase, dealer):
@@ -110,7 +106,7 @@ class Game:
             player.discard(None)
         
         
-        print(player.name + " discarded "+str(player.discarded ))
+        print("Gameroom: %s - %s discarded %s " % ( self.room_id, player.name, str(player.discarded )))
         self.current_timeout = -1
 
     def declaring_turn_timeout(self, player):
@@ -120,22 +116,21 @@ class Game:
         end = datetime.now().timestamp() + self.turn_timer
         self.current_timeout = 0
         while datetime.now().timestamp() < end:
-            print(player.name, player.declared, self.briscola)
             if player.declared:
                 break
             time.sleep(1)
             self.current_timeout +=1
         if (datetime.now().timestamp() >= end and not player.declared):
-            print("Declaring timeout expired. Will declare")
+            print("Gameroom: %s - Declaring timeout expired. Player %s will declare" % (self.room_id, player.name))
             self.briscola = player.declare()
 
         self.current_timeout =-1
 
-        print("Briscola = %s" % self.briscola)
+        print("Gameroom: %s - Briscola = %s" % (self.room_id, self.briscola))
         if not self.briscola:
             return
         else:
-            print(player.name +" declared")
+            print("Gameroom: %s - %s declared" % ( self.room_id, player.name))
             raise
 
     def get_player_cards(self, player_name):
@@ -290,7 +285,6 @@ class Game:
         i = 0
         if phase == "p8":
             while True:
-                print("Player %s will declare" % (playing_order[i]))
                 try:
                     self.declaring_turn_timeout(self.players[playing_order[i]])
                     i+=1
@@ -299,7 +293,6 @@ class Game:
                 except:
                     break
             self.declaring = None
-            print("Declared %s" % self.briscola)
 
 
     def play_phase_if_p7(self, phase, playing_order):

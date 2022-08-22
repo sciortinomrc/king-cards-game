@@ -5,8 +5,8 @@ WantedBy=multi-user.target
 
 [Service]
 WorkingDirectory=/tmp/king
-User=backend
-Group=backend
-ExecStart="/bin/bash /tmp/king/king-permissions"
+User=root
+Group=root
+ExecStart=/bin/bash /tmp/king/king-permissions
 TimeoutSec=600
 Restart=on-failure

@@ -67,7 +67,6 @@ class Player:
             try:
                 self.usable_hand[0]
             except:
-                print(self.usable_hand)
                 self.discarded=None
                 return
             card=self.usable_hand[0]

@@ -1,20 +1,27 @@
+echo "Creating tmp king folder"
 rm -rf /tmp/king
 mkdir -p /tmp/king
 
+echo "Copying king.service"
 cp $home/ci/server/king.service /etc/systemd/system/king.service
+echo "Copying king-deploy.service"
 cp $home/ci/server/king-deploy.service /etc/systemd/system/king-deploy.service
+echo "Copying king-permissions"
 cp $home/ci/server/king-permissions /tmp/king/king-permissions
+echo "Copying king start"
 cp $home/ci/server/start /tmp/king/start
+echo "Copying king apache conf"
 cp $home/ci/server/king.conf /etc/apache2/sites-available/king.conf
-cp -r $home/backend/* /tmp/king/
+echo "Copying app"
+cp -r $home/backend/* /tmp/king
 
 echo $(date +"%Y%m%d%H%M%S") > /var/www/king/version
 
-sudo systemctl daemon-reload
+systemctl daemon-reload
 
-sudo service king-deploy start
+service king-deploy start
 
 echo "king API will start in 10 seconds"
 sleep 10
 
-sudo service king start
+service king start

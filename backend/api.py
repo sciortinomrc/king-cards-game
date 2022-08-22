@@ -42,9 +42,8 @@ if __name__ == "__main__":
     
     @app.route(new_gameroom_url, methods=["post"])
     def new_gameroom():
-        # print(request.url)
-        # gameroom_id=uuid.uuid4()
-        gameroom_id = "magic"
+        print(request.url)
+        gameroom_id=uuid.uuid4()
         rooms[str(gameroom_id)] = GameRoom(str(gameroom_id))
         return redirect("https://king.mrcdev.co.uk/play/?room="+str(gameroom_id), code=302)
 

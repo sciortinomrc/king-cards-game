@@ -15,7 +15,7 @@ class GameRoom:
             raise "Room is full"
 
         self.players.append(player)
-        print("Added player: %s" %( player ))
+        print("Gameroom %s - Added player: %s" %( self.id, player ))
         if len(self.players) == 4:
             self.ready = True
 
@@ -31,6 +31,7 @@ class GameRoom:
         if self.game:
             return
         self.game = Game()
+        self.game.room_id = id
         self.game.turn_timer=10
         t = Thread(target= self.game.start, args=(self.players, ))
         t.start()

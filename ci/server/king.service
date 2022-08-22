@@ -7,6 +7,6 @@ WantedBy=multi-user.target
 WorkingDirectory=/home/backend/king
 User=backend
 Group=backend
-ExecStart="/bin/bash /home/backend/king/start"
+ExecStart=/bin/bash /home/backend/king/start
 TimeoutSec=600
 Restart=on-failure
