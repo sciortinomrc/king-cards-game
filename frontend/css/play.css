@@ -41,6 +41,15 @@ html, body{
 #name-form{
     text-align: center;
 }
+#name-form > div{
+    position: relative;
+}
+
+#name-form > div > * {
+    position:absolute
+}
+
+
 
 #waiting > div{
     display: inline-block;
@@ -70,13 +79,25 @@ html, body{
 #name{
     text-align: center;
     height: 50px;
-    width: 90%;
+    width: calc( 90% - 80px );
     border-radius: 30px;
     margin-top: 70%;
     border: 1px solid #aaa;
     background-color: #fff9;
     outline: #aaa;
     user-select: #aaa;
+    margin-left: 4%;
+    margin-right: 4%;
+    left:0;
+    padding-right:80px
+}
+#play-btn{
+    margin-top: 70%;
+    width: 80px;
+    height: 55px;
+    border-radius: 30px;
+    border: 1px solid #aaa;
+    right: 4%
 }
 #name::placeholder{
     color: #fff;

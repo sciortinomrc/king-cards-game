@@ -20,6 +20,10 @@ $("#name").on("change",async(e)=>{
     }
 })
 
+$("#play-btn").on("click",()=>{
+    $("#name").trigger("change")
+})
+
 
 const showWaiting = async()=>{
     $("#waiting").show()
