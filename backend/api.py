@@ -2,6 +2,7 @@ from flask import Flask, redirect, request, jsonify
 import waitress
 import uuid
 import traceback
+import sys
 from datetime import datetime
 from GameRoom import GameRoom
 
@@ -17,10 +18,17 @@ def delete_old_rooms ():
 
 if __name__ == "__main__":
     print("King - Card Game %s" % (version))
-    app = Flask("King")
-
     rooms = {}
 
+    if "--demo" in sys.argv:
+        rooms["magic"] = GameRoom("magic")
+        rooms["magic"].add_player("Player1")
+        rooms["magic"].add_player("Player2")
+        rooms["magic"].add_player("Player3")
+        rooms["magic"].add_player("Player4")
+        rooms["magic"].start_game()
+
+    app = Flask("King")
     # URLs
     new_gameroom_url = "/api/v1/gamerooms/new"
     is_room_ready_url = "/api/v1/gamerooms/<room_id>/ready"
@@ -45,7 +53,7 @@ if __name__ == "__main__":
         print(request.url)
         gameroom_id=uuid.uuid4()
         rooms[str(gameroom_id)] = GameRoom(str(gameroom_id))
-        return redirect("https://king.mrcdev.co.uk/play/?room="+str(gameroom_id), code=302)
+        return redirect("http://local.king.uk/play/?room="+str(gameroom_id), code=302)
 
     @app.route(is_room_ready_url)
     def is_room_ready(room_id):
@@ -215,4 +223,5 @@ if __name__ == "__main__":
 
     # app.run(port=9988)
     waitress.serve(app, host="127.0.0.1", port=9988)
+
     

@@ -11,3 +11,11 @@ $("body").on("click",async()=>{
         console.log(e)
     }
 })
+
+const injectSize = ()=>{
+    if  ( !("ontouchstart" in document) ) return
+    const doc = document.documentElement
+    doc.style.setProperty("--device-height", screen.height+"px")
+    doc.style.setProperty("--device-width", screen.width+"px")
+}
+injectSize()
