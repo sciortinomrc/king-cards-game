@@ -19,6 +19,7 @@ def delete_old_rooms ():
 if __name__ == "__main__":
     print("King - Card Game %s" % (version))
     rooms = {}
+    url = "https://king.mrcdev.co.uk"
 
     if "--demo" in sys.argv:
         rooms["magic"] = GameRoom("magic")
@@ -27,6 +28,9 @@ if __name__ == "__main__":
         rooms["magic"].add_player("Player3")
         rooms["magic"].add_player("Player4")
         rooms["magic"].start_game()
+
+    if "--local" in sys.argv:
+        url="http://local.king.uk"
 
     app = Flask("King")
     # URLs
@@ -54,7 +58,7 @@ if __name__ == "__main__":
         gameroom_id=uuid.uuid4()
         rooms[str(gameroom_id)] = GameRoom(str(gameroom_id))
         language = Locator().detect_language_request(request)
-        return redirect("http://local.king.uk/play/?room=%s&lang=%s" % (str(gameroom_id), language), code=302)
+        return redirect("%s/play/?room=%s&lang=%s" % (url, str(gameroom_id), language), code=302)
 
     @app.route(is_room_ready_url)
     def is_room_ready(room_id):
