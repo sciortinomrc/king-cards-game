@@ -3,17 +3,18 @@ import requests
 import json
 
 class Locator:
-    def detect_language_from_ip(self, request):
-        ip_info = self.get_ip_info(request)
-        language = ip_info["data"]["languages"].split(",")[0]
+    def detect_language_request(self, request):
+        language = self.get_language(request)
         return language
     
-    def get_ip_info(self, request):
+    def get_language(self, request):
         try:
             ip = request.environ["HTTP_X_REAL_IP"]
             token = environ["GEO_LOC_TOKEN"]
             requests.get("https://timezoneapi.io/api/ip/?ip=%s&token=%s" % (ip, token))
-            return json.loads(requests.text)
+            request = json.loads(requests.text)
+            print(request)
+            return request["data"]["languages"].split(",")[0]
         except:
             return "en-US"
 

@@ -2,13 +2,15 @@ echo "--------------------------------------------------"
 echo "|         Copying folder to app root             |"
 echo "--------------------------------------------------"
 
+echo $(whoami)
 mkdir -p /home/backend/king
-chown -R backend:backend /home/backend/king
-
 cp -r /tmp/king/* /home/backend/king
-service king-deploy stop
+chown -R backend:backend /home/backend/king
+chown -R backend:backend /home/backend/king/*
 
-a2ensite king
-service apache2 restart
+sudo service king-deploy stop
 
-service king start
+sudo a2ensite king
+sudo service apache2 restart
+
+sudo service king start

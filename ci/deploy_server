@@ -17,11 +17,11 @@ cp -r $home/backend/* /tmp/king
 
 echo $(date +"%Y%m%d%H%M%S") > /var/www/king/version
 
-systemctl daemon-reload
+sudo systemctl daemon-reload
 
-service king-deploy start
+sudo service king-deploy start
 
 echo "king API will start in 10 seconds"
 sleep 10
 
-service king start
+sudo service king start
