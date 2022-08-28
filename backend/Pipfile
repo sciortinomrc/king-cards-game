@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 flask = "*"
 waitress = "*"
+requests = "*"
 
 [requires]
 python_version = "3"

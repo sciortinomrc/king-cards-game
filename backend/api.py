@@ -5,7 +5,7 @@ import traceback
 import sys
 from datetime import datetime
 from GameRoom import GameRoom
-
+from Locator import Locator
 
 version = "0.0.1"
 
@@ -53,7 +53,8 @@ if __name__ == "__main__":
         print(request.url)
         gameroom_id=uuid.uuid4()
         rooms[str(gameroom_id)] = GameRoom(str(gameroom_id))
-        return redirect("http://local.king.uk/play/?room="+str(gameroom_id), code=302)
+        language = Locator().detect_language_request(request)
+        return redirect("http://local.king.uk/play/?room=%s&lang=%s" % (str(gameroom_id), language), code=302)
 
     @app.route(is_room_ready_url)
     def is_room_ready(room_id):
