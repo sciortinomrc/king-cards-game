@@ -5,6 +5,12 @@ const injectSize = ()=>{
     doc.style.setProperty("--device-width", screen.width+"px")
 }
 injectSize()
+let language = location.search.split("&").filter(p=>p.includes("lang="))[0]
+language = getSupportedLanguage(language)
+
+
+$("#name").prop("placeholder", messages.placeholder[language])
+$("#play-btn").text(messages.play_btn[language])
 
 $("#name").on("change",async(e)=>{
     try{
@@ -56,17 +62,15 @@ const startGame = async() =>{
     await start()
     
     const defaultPhase = {
-        id: null,
-        message: "La partita iniziera' appena tutti i giocatori saranno pronti..."
-        
+        id: "waiting"
     }
 
     game_info.phase = defaultPhase
-    
+    displayMessage(game_info.phase.id, language, $("#waiting"))
     await recoursivelyGetInfo()
     while (!game_info.phase || !game_info.phase.id) {
         game_info.phase = defaultPhase
-        $("#waiting").text(phase.message)
+        displayMessage(game_info.phase.id, language, $("#waiting"))
         await new Promise((resolve)=>setTimeout(resolve, 1000))
     }
     $("#waiting").hide()
@@ -113,7 +117,7 @@ const setPlayers = () => {
 
 let stopPhase = false
 const playPhase = async ()=>{
-    $("#phase").text(game_info.phase.message)
+    displayMessage(game_info.phase.id, language, $("#phase"))
     updatePlayersPoints()
     if(stopPhase) return
     await new Promise((resolve)=>setTimeout(resolve, 1000))
@@ -136,10 +140,21 @@ const updateTimeout = () => {
     let uuid = game_info.playing
     if ( game_info.declaring ) uuid = game_info.declaring.player
     $(".player-name:not(#n-"+uuid+")").removeClass("playing").css("background", "white")
-    $(".player").removeClass("playing")
-    const timerPercent = (game_info.timer / 45) * 100 
-    $("#n-"+uuid).addClass("playing").css("background", "linear-gradient(90deg, #aaffaa "+timerPercent+"%, white 0% , white 100% ")
+    $(".player").removeClass("playing").removeClass("med").removeClass("exp")
+    $("#n-"+uuid).addClass("playing")
     $("#player-"+uuid).addClass("playing")
+    const timerPercent = (game_info.timer / 45) * 100 
+    let timeoutColor = "--timer-color"
+    if(timerPercent>=33 && timerPercent<66) {
+        timeoutColor = "--timer-color-med"
+        $(".playing").addClass("med")
+    }
+    if(timerPercent>=66) {
+        timeoutColor = "--timer-color-exp"
+        $(".playing").addClass("exp")
+    }
+
+    $("#n-"+uuid).css("background", "linear-gradient(90deg, var("+timeoutColor+") "+timerPercent+"%, white 0% , white 100% ")
 }
 
 
@@ -252,7 +267,8 @@ const createHand = (myHand, usable, playing) =>{
 
     if(thisHand != previousHand){
         $("#hand").replaceWith(hand)
-        cards.options.spacing = 0.3
+        const spacing = getComputedStyle(document.documentElement).getPropertyValue('--fan-spacing')*1;
+        cards.options.spacing = spacing
         cards.fan($("#hand-top"))
         cards.fan($("#hand-bottom"))
         previousHand = thisHand

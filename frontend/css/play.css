@@ -1,7 +1,30 @@
 :root{
     --device-height: 800px;
-    --device-width: 500px
+    --device-width: 500px;
+    --card-size: 100px;
+    --hand-card-size: 120px;
+    --fan-spacing: 0.6;
+    --timer-color: #aaffaa;
+    --timer-color-med: #ffd000;
+    --timer-color-exp: #ff4800;
 }
+
+@media (max-width: 414px){
+    :root{
+        --card-size: 80px;
+        --hand-card-size: 100px;
+        --fan-spacing: 0.5
+    }
+}
+
+@media (max-width: 375px){
+    :root{
+        --card-size: 70px;
+        --hand-card-size: 90px;
+        --fan-spacing: 0.4
+    }
+}
+
 
 html, body{
     margin: 0px
@@ -144,7 +167,8 @@ html, body{
 #hand{
     min-height: 30vh;
     max-height: 30vh;
-    position:relative
+    position:relative;
+    max-width: 350px;
 }
 #phase{
     min-height: 30px;
@@ -167,14 +191,15 @@ html, body{
 
 #hand-bottom{
     top: -100px;
-    left: 20px
+    left: 20px;
+    position: relative;
 }
 
 #middle{
     margin-bottom: 10px;
     min-width: 100%;
-    min-height: 20vh;
-    max-height: 20vh;
+    min-height: 25vh;
+    max-height: 25vh;
     text-align: center;
 }
 #middle .card{
@@ -243,11 +268,11 @@ html, body{
 
 
 
-.card{
-    width: 90px
+img.card{
+    width: var(--card-size)
 }
-.fan .card{
-    width: 100px!important
+.fan img.card{
+    width: var(--hand-card-size)
 }
 
 #briscola{
@@ -319,8 +344,14 @@ html, body{
     -webkit-animation: playing_now 3s infinite ease-out;
     animation: playing_now 3s infinite ease-out;
 }
-.player.playing{
-    border: 1.5px solid #00ff00
+.playing{
+    border: 1.5px solid #00ff00;
+}
+.playing.med{
+    border: 1.5px solid #ffee00;
+}
+.playing.exp{
+    border: 1.5px solid #ff0000;
 }
 .player-name{
     position: absolute;

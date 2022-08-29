@@ -32,7 +32,6 @@ class GameRoom:
             return
         self.game = Game()
         self.game.room_id = id
-        self.game.turn_timer=10
         t = Thread(target= self.game.start, args=(self.players, ))
         t.start()
 

@@ -229,7 +229,7 @@ class Game:
     def shuffle_and_distribute(self, phase, dealer):
         croupier = Croupier()
         self.current_phase={
-            "id": None,
+            "id": "croupier",
             "message": "Il croupier sta mescolando le carte"
         }
         time.sleep(5)
