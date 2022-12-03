@@ -1,6 +1,3 @@
-echo "HOME $home"
-ls  $home/frontend
-
-mkdir -p /var/www/king
-cp -r $home/frontend/*  /var/www/king/
-echo $(date +"%Y%m%d%H%M%S") > /var/www/king/version
+sudo mkdir -p /var/www/king
+sudo cp -r $home/frontend/*  /var/www/king/
+sudo echo $(date +"%Y%m%d%H%M%S") > /var/www/king/version
