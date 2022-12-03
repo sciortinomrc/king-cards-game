@@ -1,3 +1,2 @@
 sudo mkdir -p /var/www/king
 sudo cp -r $home/frontend/*  /var/www/king/
-sudo echo $(date +"%Y%m%d%H%M%S") > /var/www/king/version
