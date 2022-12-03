@@ -1,6 +1,4 @@
-echo $home
-ls $home
-ls $home/frontend
+echo "HOME $home"
 
 mkdir -p /var/www/king
 cp -r $home/frontend/*  /var/www/king/
