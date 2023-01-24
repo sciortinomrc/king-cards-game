@@ -1,4 +1,4 @@
-rm -r /var/www/king
+sudo rm -r /var/www/king
 mkdir -p /var/www/king
 cp -r $home/frontend/*  /var/www/king/
 echo $(date +"%Y%m%d%H%M%S") > /var/www/king/version
