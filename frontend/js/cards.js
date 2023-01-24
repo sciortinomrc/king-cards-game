@@ -28,7 +28,8 @@ const addCardImages = (hand, cards) => {
     cards = module.cardNames(cards);
     hand.empty();
     for (i = 0; i < cards.length; ++i) {
-        src = "src='" + module.options.imagesUrl + cards[i] + '.svg' + "'";
+        src = preloadedCards[cards[i]]
+        // src = "src='" + module.options.imagesUrl + cards[i] + '.svg' + "'";
         hand.append("<img class='card' " + src + ">");
     }
 }
@@ -181,3 +182,20 @@ const calculateCoords = (numCards, arcRadius, cardWidth, cardHeight, direction, 
 const cardSetTop = (card, top) => {
     card.style.top = top + "px";
 }
+
+
+const preloadedCards = {}
+const preloadCards = () => {
+    const values = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"]
+    const suites = ["H", "D", "C", "S"]
+    for (const suite of suites){
+        for (const value of values){
+            const cardId = suite+value
+            const card = new Image()
+            card.src="/cards/"+cardId+".svg"
+            preloadedCards[cardId] = card
+        }
+    }
+}
+
+preloadCards()

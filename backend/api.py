@@ -51,6 +51,7 @@ if __name__ == "__main__":
     discard_url = "/api/v1/gamerooms/<room_id>/player/<player_name>/discard/<card>"
     declare_url = "/api/v1/gamerooms/<room_id>/player/<player_name>/declare/<suit>"
     get_game_info_url = "/api/v1/gamerooms/<room_id>/player/<player_name>/info"
+    ping_king = "/ping"
     
     @app.route(new_gameroom_url, methods=["post"])
     def new_gameroom():
@@ -58,7 +59,11 @@ if __name__ == "__main__":
         gameroom_id=uuid.uuid4()
         rooms[str(gameroom_id)] = GameRoom(str(gameroom_id))
         language = Locator().detect_language_request(request)
-        return redirect("%s/play/?room=%s&lang=%s" % (url, str(gameroom_id), language), code=302)
+        demo=""
+        if  "demo=true" in request.url:
+            rooms[str(gameroom_id)].play_demo()
+            demo="&demo=true"
+        return redirect("%s/play/?room=%s&lang=%s%s" % (url, str(gameroom_id), language, demo), code=302)
 
     @app.route(is_room_ready_url)
     def is_room_ready(room_id):
@@ -224,6 +229,10 @@ if __name__ == "__main__":
         except Exception as e:
             traceback.print_exc()
             return "Bad Request", 400
+
+    @app.route(ping_king)
+    def ping():
+        return "pong"
     
 
     # app.run(port=9988)

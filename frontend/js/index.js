@@ -1,6 +1,7 @@
 $("body").on("click",async()=>{
     try{
-        const req = await fetch("/api/v1/gamerooms/new",{
+        const demo = location.search.includes("demo=true")?"?demo=true": ""
+        const req = await fetch("/api/v1/gamerooms/new"+demo,{
             method: "POST"
         })
         if (req.redirected){

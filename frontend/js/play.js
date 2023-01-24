@@ -216,6 +216,14 @@ const createTwoLines = (suites) => {
         bottom = min.a
         top = min.b
     }
+
+
+    if(top.length>=7){
+        const extraFromTop = top.slice(7)
+        for (let i = extraFromTop.length-1; i>=0; i--) {
+            bottom.unshift(extraFromTop[i])
+        }
+    }
     
     return { top, bottom}
 
@@ -518,3 +526,13 @@ let myself = null, myUuid = null
 
 $("#game-wrapper > div").hide()
 $("#name-form").show()
+
+if(location.search.includes("demo=true")){
+    $("#game-wrapper > div").hide()
+    $("#name-form").hide()
+    $("#waiting").show()
+    setTimeout(()=>{
+        $("#name").val("Player1")
+        $("#play-btn").click()
+    },3000)
+}

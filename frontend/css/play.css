@@ -1,9 +1,9 @@
 :root{
     --device-height: 800px;
     --device-width: 500px;
-    --card-size: 100px;
-    --hand-card-size: 120px;
-    --fan-spacing: 0.6;
+    --card-size: 90px;
+    --hand-card-size: 110px;
+    --fan-spacing: 0.5;
     --timer-color: #aaffaa;
     --timer-color-med: #ffd000;
     --timer-color-exp: #ff4800;
@@ -11,23 +11,24 @@
 
 @media (max-width: 414px){
     :root{
-        --card-size: 80px;
-        --hand-card-size: 100px;
-        --fan-spacing: 0.5
-    }
-}
-
-@media (max-width: 375px){
-    :root{
         --card-size: 70px;
         --hand-card-size: 90px;
         --fan-spacing: 0.4
     }
 }
 
+@media (max-width: 375px){
+    :root{
+        --card-size: 70px;
+        --hand-card-size: 80px;
+        --fan-spacing: 0.39
+    }
+}
+
 
 html, body{
-    margin: 0px
+    margin: 0px;
+    overflow: hidden;
 }
 
 #game-wrapper, #create-room {
@@ -73,12 +74,17 @@ html, body{
 }
 
 
+#waiting{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
 #waiting > div{
-    display: inline-block;
-    margin: 150px 5px ;
-    min-height: 200px;
-    max-height: 200px;
+    /* margin: 150px 5px ; */
+    min-height: 100px;
+    max-height: 100px;
     width: 90%;
     background-color: whitesmoke;
     border: 1px solid #ccc;
@@ -168,7 +174,8 @@ html, body{
     min-height: 30vh;
     max-height: 30vh;
     position:relative;
-    max-width: 350px;
+    text-align: center;
+    margin-left: -10px;
 }
 #phase{
     min-height: 30px;
@@ -186,12 +193,11 @@ html, body{
 
 
 #hand > div {
-    margin-left: 20px
+    margin:auto
 }
 
 #hand-bottom{
     top: -100px;
-    left: 20px;
     position: relative;
 }
 

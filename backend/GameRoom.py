@@ -26,12 +26,19 @@ class GameRoom:
         except:
             return False
 
+    def play_demo(self):
+        self.players=["Player1", "Player2", "Player3", "Player4"]
+        self.ready = True   
+        
+        self.start_game(demo=True)
 
-    def start_game(self):
+    def start_game(self,demo=False):
         if self.game:
             return
         self.game = Game()
         self.game.room_id = id
+        if demo:
+            self.game.turn_timer=30
         t = Thread(target= self.game.start, args=(self.players, ))
         t.start()
 
