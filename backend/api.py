@@ -51,7 +51,7 @@ if __name__ == "__main__":
     discard_url = "/api/v1/gamerooms/<room_id>/player/<player_name>/discard/<card>"
     declare_url = "/api/v1/gamerooms/<room_id>/player/<player_name>/declare/<suit>"
     get_game_info_url = "/api/v1/gamerooms/<room_id>/player/<player_name>/info"
-    ping_king = "/ping"
+    ping_king = "/admin/ping"
     
     @app.route(new_gameroom_url, methods=["post"])
     def new_gameroom():
